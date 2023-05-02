@@ -1,0 +1,34 @@
+Automatic-comments v1.0.0
+
+本爬虫是由广大训练师共同的成果,欢迎转载和使用,但请在分享前标明作者
+
+本程序使用编程猫社区的api,如果因使用不当导致您和编程猫社区造成影响和损失,本人不承担任何责任
+
+所有程序均使用python3编程,在使用前请确认您有一定的编程基础并已经安装了所需的库
+
+本程序会自动生成一个记录有编程猫作品及用户信息的txt文档--qwq.txt与以及存储您账号密码的config.ini
+本程序会使用您的cookie&账号密码进行必须操作,但不会联网发送您的隐私信息
+
+原作:https://shequ.codemao.cn/community/429585 
+by伴雪纷飞 (https://shequ.codemao.cn/user/2856172
+#由于原作者因制作box3-up插件被封,现作者账号转移至 伴只狗头(https://shequ.codemao.cn/user/1888155714
+参考:
+PXstate (https://shequ.codemao.cn/user/1258391425 #制作了账号密码登录代码(见The Old文件夹-密码登录.py
+屏蔽词转换代码 by伴雪纷飞(见The Old文件夹-屏蔽词转换.py
+以及广大cdn社区参考文档
+Chat GPT 3.5参与了本次代码修改和添加注释!
+感谢《A Byte of Python》(《简明Python教程》)Swaroop C H撰 漠伦译!(http://zhuanlan.zhihu.com/p/24672770
+
+联系方式:
+QQ      
+3611198191 
+邮箱  
+catfish1106@163.com	& 	zybqw@qq.com		&	Fish-that-loves-cats@outlook.com
+编程猫
+https://shequ.codemao.cn/user/12770114
+
+本文档 修改于2023/05/02 08:10
+
+
+
+
