@@ -1,0 +1,184 @@
+import os
+import random
+import urllib.request
+from bs4 import BeautifulSoup
+from configparser import ConfigParser
+import pandas as pd
+from datetime import datetime
+import asyncio
+
+
+config_file = "config.ini"
+base_url = "https://api.codemao.cn/creation-tools/v1/"
+cookie = None
+likes_count = 0
+comments_count = 0
+
+
+async def load_config():
+    """
+    异步加载配置文件中的账户信息。
+    """
+    config = ConfigParser()
+    config.read(config_file)
+    return (config.get("Account", "username"), config.get("Account", "password"))
+
+async def save_config(username, password):
+    """
+    异步保存账户信息到配置文件。
+    """
+    config = ConfigParser()
+    config.add_section("Account")
+    config.set("Account", "username", username)
+    config.set("Account", "password", password)
+    with open(config_file, "w") as configfile:
+        config.write(configfile)
+
+async def get_cookie():
+    """
+    异步获取并读取cookie信息，如果不存在则根据相应的交互提示输入或者自行输入。
+    """
+    global cookie
+    if cookie is None:
+        while True:
+            choice_ = input("[K] Account login or [C] Cookie input: ")
+            if choice_ == "K":
+                username, password = await load_config() if os.path.exists(config_file) else await input_account()
+                if await login(username, password):
+                    break
+            elif choice_ == "C":
+                cookie_str = input("Enter your cookie string: ")
+                if test_cookie(cookie_str):
+                    cookie = cookie_str
+                    break
+                else:
+                    print("Test failed! Please retry.")
+            else:
+                print("Invalid input. Please input K or C!")
+    return cookie.strip()
+
+async def input_account():
+    """
+    异步为账号密码输入提供交互界面。
+    """
+    username = input("Please enter your username: ")
+    password = input("Please enter your password: ")
+    await save_config(username, password)
+    return username, password
+
+async def login(username=None, password=None):
+    """
+    异步登陆编程猫，获取cookie信息。
+    """
+    global cookie
+    headers = {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.46"
+        }
+    soup = BeautifulSoup(
+        urllib.request.urlopen("https://shequ.codemao.cn", headers=headers).read(), "html.parser"
+    )
+    pid = soup.find_all("script")[0].string.split("=")[1]
+    if not username or not password:
+        username, password = await load_config()
+    data = {"identity": username, "password": password, "pid": pid}
+    request = urllib.request.Request(f"{base_url}/web/accounts/login", data=bytes(json.dumps(data), encoding="utf-8"), headers=headers, method="POST")
+    try:
+        with urllib.request.urlopen(request, timeout=10) as response:
+            if response.status == 200:
+                res = json.loads(response.read())
+                cookie = "authorization=" + res["access_token"] + ";acw_tc=781f53a016448894415445830ec3f69b54d66ad2ef6141670d57cbbce13ec"
+                return True
+            else:
+                print(response.reason)
+                return False
+    except Exception as e:
+        print(f"Error in logging in: {e}")
+        return False
+
+
+async def get_latest_works():
+    """
+    异步获取最新作品列表。
+    """
+    url = f"{base_url}/pc/discover/newest-work?offset=0&limit=20"
+    headers = {"cookie": await get_cookie()}
+    request = urllib.request.Request(url, headers=headers, method="GET")
+    with urllib.request.urlopen(request, timeout=10) as response:
+        return json.loads(response.read())["items"]
+
+
+async def like_work(work_id):
+    """
+    异步对指定的作品点赞。
+    """
+    global likes_count
+    url = f"{base_url}/works/{work_id}/like"
+    headers = {"content-type": "application/json", "cookie": await get_cookie()}
+    data = "{}"
+    request = urllib.request.Request(url, headers=headers, data=bytes(data, encoding="utf-8"), method="POST")
+    try:
+        with urllib.request.urlopen(request, timeout=10) as response:
+            status_code = response.status
+            if status_code == 200:
+                likes_count += 1
+                print(f"Work {work_id} has been liked!")
+                return True
+            elif status_code == 401:  # cookie失效，需要重新登录获取
+                if await login():
+                    await like_work(work_id)  # 可以用尝试多次后返回获得成功
+                else:
+                    print("Failed to login. Cannot like work.")
+            else:
+                print(f"Liking work {work_id} failed! Response code: {status_code}")
+    except Exception as e:
+        print(f"Error in liking work {work_id}: {e}")
+
+async def comment_work(work_id):
+    """
+    异步对指定的作品进行评论。
+    """
+    contents = ["666＃°Д°", "加油！:O", "针不戳:D", "前排:P", "沙发*/ω＼*"]
+    emojis = [
+        "编程猫_666",
+        "编程猫_棒",
+        "编程猫_打call",
+        "编程猫_加油",
+        "雷电猴_哇塞",
+        "魔术喵_魔术",
+        "星能猫_耶",
+    ]
+    content = random.choice(contents)
+    emoji = random.choice(emojis)
+    url = f"{base_url}/works/{work_id}/comment"
+    headers = {"content-type": "application/json", "cookie": await get_cookie()}
+    data = {"content": content, "emoji_content": emoji}
+    request = urllib.request.Request(url, headers=headers, data=bytes(json.dumps(data), encoding="utf-8"), method="POST")
+    try:
+        with urllib.request.urlopen(request, timeout=10) as response:
+            status_code = response.status
+            if status_code == 200:
+                global comments_count
+                comments_count += 1
+                print(f"Work {work_id} has been commented!")
+                return True
+            elif status_code == 401:  # cookie失效，需要重新登录获取
+                if await login():
+                    await comment_work(work_id)
+                else:
+                    print("Failed to login. Cannot like work.")
+            else:
+                print(f"Commenting work {work_id} failed! Response code: {status_code}")
+    except Exception as e:
+        print(f"Error in commenting work {work_id}: {e}")
+
+
+async def main():
+    works_list = await asyncio.ensure_future(get_latest_works())
+    for work in works_list:
+        work_id = str(work["works"]["id"])
+        await asyncio.ensure_future(like_work(work_id))
+        await asyncio.ensure_future(comment_work(work_id))
+
+if __name__ == "__main__":
+    asyncio.run(main())
