@@ -4,7 +4,7 @@
 
 ## 使用流程
 
-1. 下载代码并安装所需的依赖项。[若下载失败,请点击这里配置国内镜像源]([Python设置镜像源默认为清华的方法 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/339191263))
+1. 下载代码并安装所需的依赖项。[若下载失败,请点击这里配置国内镜像源👀](https://zhuanlan.zhihu.com/p/339191263)
 
    ```
    pip install requests
