@@ -1,6 +1,6 @@
 ## 介绍
-![signs](https://github.com/zybqw/CodeMao-AutoCommenter/assets/132246733/83d2bce2-7546-48da-881c-07cfdd4d15aa)
 
+![sign](https://github.com/zybqw/CodeMao-AutoCommenter/assets/132246733/10d4dafe-dd28-4b63-8a55-c40d3c2876c5)
 
 这是一个使用 Python 编写的程序，用于自动点赞和评论编程猫网站上的作品。通过模拟用户行为，可以轻松地对多个作品进行点赞和评论。
 
