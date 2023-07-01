@@ -1,23 +1,28 @@
 ## 介绍
-![sign](https://github.com/zybqw/CodeMao-AutoCommenter/assets/132246733/1dbbf4f9-fdf7-4bf4-bb1b-08145db46ead)
+![signs](https://github.com/zybqw/CodeMao-AutoCommenter/assets/132246733/83d2bce2-7546-48da-881c-07cfdd4d15aa)
+
 
 这是一个使用 Python 编写的程序，用于自动点赞和评论编程猫网站上的作品。通过模拟用户行为，可以轻松地对多个作品进行点赞和评论。
 
 ## 使用流程
 
-1. 下载代码并安装所需的依赖项。[若下载失败,请点击这里配置国内镜像源👀](https://zhuanlan.zhihu.com/p/339191263)
+1. 下载代码并安装所需的依赖项。
+ 
 
    ```
    pip install requests
    pip install beautifulsoup4
    ```
+   [若下载失败,请点击这里配置国内镜像源👀](https://zhuanlan.zhihu.com/p/339191263)
 
-2. 运行程序并选择登录方式。
+3. 运行程序并选择登录方式。
    用户可以选择账号登录或者 Cookie登录
 
-3. 打开程序文件，输入你的编程猫账号和密码或者 Cookie。
+4. 打开程序文件，输入你的编程猫账号和密码或者 Cookie。
 
-4. 程序会自动从最新作品列表中获取作品并进行点赞和评论。
+5. 输入文件保存位置
+
+6. 程序会自动从最新作品列表中获取作品并进行点赞和评论。
    ***请注意，该程序仅供学习和研究使用，请勿滥用。***
 
 ## 主要功能
