@@ -50,6 +50,7 @@
 - requests 库
 - BeautifulSoup 库
 - configparser 库
+- json库
 
 ## 下载地址
 
