@@ -66,5 +66,3 @@
 - 邮箱：zybqw@qq.com 📧
 - 个人主页：https://shequ.codemao.cn/user/12770114 🌐
   感谢您的阅读！😉
-## 历史
- <iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://star-history.com/embed?secret=Z2hwX2JtWEthb0U1Q0FRSUFNOGk4NU1mOW1vZXJnVnZzSTNHZVN6cw==#zybqw/CodeMao-AutoCommenter&Date" frameBorder="0"></iframe>
