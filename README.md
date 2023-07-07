@@ -70,4 +70,4 @@
 
 ## Star History
 
-<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://star-history.com/embed?secret=Z2hwXzA2S242ckdnTTJkOU40WjFPYlVxQllqbnJXdGVTUTBKSFNTZQ==#zybqw/CodeMao-AutoCommenter&Date" frameBorder="0"></iframe>
+[![Star History Chart](https://api.star-history.com/svg?repos=zybqw/CodeMao-AutoCommenter&type=Date)](https://star-history.com/#zybqw/CodeMao-AutoCommenter&Date)
